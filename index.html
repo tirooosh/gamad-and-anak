@@ -8,17 +8,14 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-
         h1 {
             text-align: center;
         }
-
         #connections {
             border: 1px solid #ddd;
             padding: 10px;
             margin-top: 20px;
         }
-
         #connections p {
             margin-bottom: 5px;
         }
@@ -30,12 +27,10 @@
 
     <script>
         async function displayConnections() {
-            const response = await fetch("changednames.txt");  // Assuming filename
-            const text = await response.text();
-            const connections = text.split("\n");
-
+            const response = await fetch("/get-names");
+            const connections = await response.json();
             const connectionsDiv = document.getElementById("connections");
-
+            connectionsDiv.innerHTML = ''; // Clear previous connections
             connections.forEach(connection => {
                 const p = document.createElement("p");
                 p.textContent = connection;
@@ -43,7 +38,7 @@
             });
         }
 
-        displayConnections();
+        window.onload = displayConnections; // Call displayConnections when the window loads
     </script>
 </body>
 </html>
